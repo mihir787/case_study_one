@@ -1,0 +1,55 @@
+---
+title: "Case Study 1 - Mihir Parikh"
+author: "mihir parikh"
+date: "2/20/2018"
+output:
+  html_document:
+    keep_md: true
+---
+
+#Questions
+```{r case study 1 questions}
+library(dplyr)
+library(ggplot2)
+
+#read in csv files and normalize column names
+Beers <- read.csv("Beers.csv", sep = ",")
+colnames(Beers) <- c("Name", "Beer_id", "ABV", "IBU", "Brewery_id", "Style", "Ounces")
+
+Breweries <- read.csv("Breweries.csv", sep = ",")
+colnames(Breweries) <- c("Brewery_id", "Name", "City", "State")
+
+# a. How many breweries in each state?
+summary(Breweries)
+table(Breweries$State)
+
+# b. Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file
+brewDataMerged <- merge(Beers, Breweries, by = "Brewery_id", all = TRUE)
+head(brewDataMerged, 6)
+tail(brewDataMerged, 6)
+
+# c. Report the number of NA's in Each Column
+sapply(brewDataMerged, function(x) sum(length(which(is.na(x)))))
+
+# d. Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
+stateGrouped <- group_by(brewDataMerged, State)
+summarizedGroup <- summarize(stateGrouped, Median_alcohol = median(ABV, na.rm = TRUE), Median_IBU = median(IBU, na.rm = TRUE))
+ggplot(data = summarizedGroup) + geom_bar(mapping = aes(x= State, y= Median_alcohol), stat="identity")
+ggplot(data = summarizedGroup) + geom_bar(mapping = aes(x= State, y= Median_IBU), stat="identity")
+
+# e.
+#state with most alcoholic beer?
+brewDataMerged[which.max(brewDataMerged$ABV),]
+
+#state witb most bitter beer
+brewDataMerged[which.max(brewDataMerged$IBU),]
+
+#f. summary for ABV statistic
+summary(brewDataMerged$ABV)
+
+#g. relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot.
+ggplot(brewDataMerged, aes(IBU, ABV))+ 
+  ggtitle("International Bitterness Units (IBU) vs. Alcohol Content (ABV)") +
+  geom_point(color="green") + 
+  geom_smooth(method=lm,  se=FALSE, color="blue")
+```
