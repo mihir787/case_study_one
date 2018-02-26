@@ -459,4 +459,18 @@ ggplot(plot_frame, aes(x=State, y=MedianIBU)) +
 
 ![](case_study_one_files/figure-html/Q4-2.png)<!-- -->
 
+### Question 5
 
+
+```r
+# Sort data to determine State with highest ABV
+# Largest ABV is .125 within Kentucky
+TopABV <- df_merge_subset[order(-df_merge_subset$ABV),]
+TopABV <- TopABV[1,1:2]
+
+# Sort data to determine State with highest IBU
+# Largest IBU is 138 within Oregan
+TopIBU <- df_merge_subset[order(-df_merge_subset$IBU),]
+TopIBU <- TopIBU[1,]
+TopIBU[,2] <- NULL
+```
