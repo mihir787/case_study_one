@@ -89,3 +89,33 @@ colnames(BreweryByState) <- c('State','Count')
 
 BreweryByState
 ```
+
+### Question 2
+Combine data set into a merged frame
+
+```{r Q2}
+# Read in csv file containing Beer details
+Beers <- read.csv("Beers.csv", header=TRUE, sep = ',')
+
+# Merge the data on Beers.Brewery_Id and Breweries.Brew_ _ID then validate merged file
+df_merge <- merge(Beers, Breweries, by.x="Brewery_id", by.y = "Brew_ID")
+head(df_merge)
+tail(df_merge)
+
+#Give the columns more meaningful name
+# Rename column 'Name' from Beers data
+colnames(df_merge)[2] <- "Beer_name"
+
+# Rename column 'Name' from Breweries data
+colnames(df_merge)[8] <- "Brewery_name"
+names(df_merge)
+
+#Arrange the columns in more meaningful order
+df_merge <- df_merge[c("Brewery_id","Brewery_name","Beer_ID","Beer_name",
+                       "ABV","IBU","Style","Ounces", "City","State")]
+
+
+# Show first 6 and last 6 rows of merged data
+head(df_merge,6)
+tail(df_merge,6)
+```

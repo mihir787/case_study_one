@@ -203,3 +203,139 @@ BreweryByState
 ## 51    WY     4
 ## 52    MI     1
 ```
+
+### Question 2
+Combine data set into a merged frame
+
+
+```r
+# Read in csv file containing Beer details
+Beers <- read.csv("Beers.csv", header=TRUE, sep = ',')
+
+# Merge the data on Beers.Brewery_Id and Breweries.Brew_ _ID then validate merged file
+df_merge <- merge(Beers, Breweries, by.x="Brewery_id", by.y = "Brew_ID")
+head(df_merge)
+```
+
+```
+##   Brewery_id        Name.x Beer_ID   ABV IBU
+## 1          1  Get Together    2692 0.045  50
+## 2          1 Maggie's Leap    2691 0.049  26
+## 3          1    Wall's End    2690 0.048  19
+## 4          1       Pumpion    2689 0.060  38
+## 5          1    Stronghold    2688 0.060  25
+## 6          1   Parapet ESB    2687 0.056  47
+##                                 Style Ounces             Name.y
+## 1                        American IPA     16 NorthGate Brewing 
+## 2                  Milk / Sweet Stout     16 NorthGate Brewing 
+## 3                   English Brown Ale     16 NorthGate Brewing 
+## 4                         Pumpkin Ale     16 NorthGate Brewing 
+## 5                     American Porter     16 NorthGate Brewing 
+## 6 Extra Special / Strong Bitter (ESB)     16 NorthGate Brewing 
+##          City State
+## 1 Minneapolis    MN
+## 2 Minneapolis    MN
+## 3 Minneapolis    MN
+## 4 Minneapolis    MN
+## 5 Minneapolis    MN
+## 6 Minneapolis    MN
+```
+
+```r
+tail(df_merge)
+```
+
+```
+##      Brewery_id                    Name.x Beer_ID   ABV IBU
+## 2405        556             Pilsner Ukiah      98 0.055  NA
+## 2406        557  Heinnieweisse Weissebier      52 0.049  NA
+## 2407        557           Snapperhead IPA      51 0.068  NA
+## 2408        557         Moo Thunder Stout      50 0.049  NA
+## 2409        557         Porkslap Pale Ale      49 0.043  NA
+## 2410        558 Urban Wilderness Pale Ale      30 0.049  NA
+##                        Style Ounces                        Name.y
+## 2405         German Pilsener     12         Ukiah Brewing Company
+## 2406              Hefeweizen     12       Butternuts Beer and Ale
+## 2407            American IPA     12       Butternuts Beer and Ale
+## 2408      Milk / Sweet Stout     12       Butternuts Beer and Ale
+## 2409 American Pale Ale (APA)     12       Butternuts Beer and Ale
+## 2410        English Pale Ale     12 Sleeping Lady Brewing Company
+##               City State
+## 2405         Ukiah    CA
+## 2406 Garrattsville    NY
+## 2407 Garrattsville    NY
+## 2408 Garrattsville    NY
+## 2409 Garrattsville    NY
+## 2410     Anchorage    AK
+```
+
+```r
+#Give the columns more meaningful name
+# Rename column 'Name' from Beers data
+colnames(df_merge)[2] <- "Beer_name"
+
+# Rename column 'Name' from Breweries data
+colnames(df_merge)[8] <- "Brewery_name"
+names(df_merge)
+```
+
+```
+##  [1] "Brewery_id"   "Beer_name"    "Beer_ID"      "ABV"         
+##  [5] "IBU"          "Style"        "Ounces"       "Brewery_name"
+##  [9] "City"         "State"
+```
+
+```r
+#Arrange the columns in more meaningful order
+df_merge <- df_merge[c("Brewery_id","Brewery_name","Beer_ID","Beer_name",
+                       "ABV","IBU","Style","Ounces", "City","State")]
+
+
+# Show first 6 and last 6 rows of merged data
+head(df_merge,6)
+```
+
+```
+##   Brewery_id       Brewery_name Beer_ID     Beer_name   ABV IBU
+## 1          1 NorthGate Brewing     2692  Get Together 0.045  50
+## 2          1 NorthGate Brewing     2691 Maggie's Leap 0.049  26
+## 3          1 NorthGate Brewing     2690    Wall's End 0.048  19
+## 4          1 NorthGate Brewing     2689       Pumpion 0.060  38
+## 5          1 NorthGate Brewing     2688    Stronghold 0.060  25
+## 6          1 NorthGate Brewing     2687   Parapet ESB 0.056  47
+##                                 Style Ounces        City State
+## 1                        American IPA     16 Minneapolis    MN
+## 2                  Milk / Sweet Stout     16 Minneapolis    MN
+## 3                   English Brown Ale     16 Minneapolis    MN
+## 4                         Pumpkin Ale     16 Minneapolis    MN
+## 5                     American Porter     16 Minneapolis    MN
+## 6 Extra Special / Strong Bitter (ESB)     16 Minneapolis    MN
+```
+
+```r
+tail(df_merge,6)
+```
+
+```
+##      Brewery_id                  Brewery_name Beer_ID
+## 2405        556         Ukiah Brewing Company      98
+## 2406        557       Butternuts Beer and Ale      52
+## 2407        557       Butternuts Beer and Ale      51
+## 2408        557       Butternuts Beer and Ale      50
+## 2409        557       Butternuts Beer and Ale      49
+## 2410        558 Sleeping Lady Brewing Company      30
+##                      Beer_name   ABV IBU                   Style Ounces
+## 2405             Pilsner Ukiah 0.055  NA         German Pilsener     12
+## 2406  Heinnieweisse Weissebier 0.049  NA              Hefeweizen     12
+## 2407           Snapperhead IPA 0.068  NA            American IPA     12
+## 2408         Moo Thunder Stout 0.049  NA      Milk / Sweet Stout     12
+## 2409         Porkslap Pale Ale 0.043  NA American Pale Ale (APA)     12
+## 2410 Urban Wilderness Pale Ale 0.049  NA        English Pale Ale     12
+##               City State
+## 2405         Ukiah    CA
+## 2406 Garrattsville    NY
+## 2407 Garrattsville    NY
+## 2408 Garrattsville    NY
+## 2409 Garrattsville    NY
+## 2410     Anchorage    AK
+```
