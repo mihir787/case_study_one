@@ -492,3 +492,24 @@ summaryABV
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## 0.02700 0.05000 0.05700 0.05991 0.06800 0.12500
 ```
+
+### Question 7
+
+```r
+library(ggplot2)
+cor(df_merge_subset$IBU, df_merge_subset$ABV)
+```
+
+```
+## [1] 0.6706215
+```
+
+```r
+ggplot(df_merge_subset, aes(x=IBU, y=ABV)) + 
+  geom_point(color = "red", size = 3)+
+  geom_smooth(method=lm, se = FALSE, color = "black") +
+  labs(x="International Bitterness Units of Beer", y="Alcohol by Volume of Beer") + 
+  ggtitle("Alchohol by Volume vs International Bitterness Units")
+```
+
+![](case_study_one_files/figure-html/Q7-1.png)<!-- -->

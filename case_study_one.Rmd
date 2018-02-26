@@ -182,3 +182,15 @@ TopIBU
 summaryABV <- summary(df_merge_subset$ABV)
 summaryABV
 ```
+
+### Question 7
+```{r Q7}
+library(ggplot2)
+cor(df_merge_subset$IBU, df_merge_subset$ABV)
+
+ggplot(df_merge_subset, aes(x=IBU, y=ABV)) + 
+  geom_point(color = "red", size = 3)+
+  geom_smooth(method=lm, se = FALSE, color = "black") +
+  labs(x="International Bitterness Units of Beer", y="Alcohol by Volume of Beer") + 
+  ggtitle("Alchohol by Volume vs International Bitterness Units")
+```
