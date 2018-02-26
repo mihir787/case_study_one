@@ -363,3 +363,100 @@ CountNA
 ## State              0
 ```
 
+### Question 4
+
+```r
+# Remove NA from df_merge
+library(ggplot2)
+df_merge <- na.omit(df_merge)
+
+# Generate the median of alcohol content and international bitterness unit for each State
+df_merge_subset <- data.frame(State=df_merge$State, ABV=df_merge$ABV, IBU=df_merge$IBU)
+
+MedianABV <- tapply(df_merge_subset$ABV,df_merge_subset$State,median)
+MedianIBU <- tapply(df_merge_subset$IBU,df_merge_subset$State,median)
+
+# Combine with State
+plot_frame <- data.frame(MedianABV, MedianIBU)
+plot_frame$State <- rownames(plot_frame)
+rownames(plot_frame) <- NULL
+plot_frame
+```
+
+```
+##    MedianABV MedianIBU State
+## 1     0.0570      46.0    AK
+## 2     0.0600      43.0    AL
+## 3     0.0400      39.0    AR
+## 4     0.0575      20.5    AZ
+## 5     0.0580      42.0    CA
+## 6     0.0650      40.0    CO
+## 7     0.0610      29.0    CT
+## 8     0.0590      47.5    DC
+## 9     0.0550      52.0    DE
+## 10    0.0620      55.0    FL
+## 11    0.0620      55.0    GA
+## 12    0.0520      22.5    HI
+## 13    0.0560      26.0    IA
+## 14    0.0580      39.0    ID
+## 15    0.0570      30.0    IL
+## 16    0.0570      33.0    IN
+## 17    0.0500      20.0    KS
+## 18    0.0575      31.5    KY
+## 19    0.0510      31.5    LA
+## 20    0.0540      35.0    MA
+## 21    0.0565      29.0    MD
+## 22    0.0670      61.0    ME
+## 23    0.0560      35.0    MI
+## 24    0.0555      44.5    MN
+## 25    0.0500      24.0    MO
+## 26    0.0580      45.0    MS
+## 27    0.0570      40.0    MT
+## 28    0.0610      33.5    NC
+## 29    0.0500      32.0    ND
+## 30    0.0560      35.0    NE
+## 31    0.0465      48.5    NH
+## 32    0.0460      34.5    NJ
+## 33    0.0610      51.0    NM
+## 34    0.0550      41.0    NV
+## 35    0.0595      47.0    NY
+## 36    0.0575      40.0    OH
+## 37    0.0630      35.0    OK
+## 38    0.0560      40.0    OR
+## 39    0.0570      30.0    PA
+## 40    0.0525      24.0    RI
+## 41    0.0500      30.0    SC
+## 42    0.0550      37.0    TN
+## 43    0.0550      33.0    TX
+## 44    0.0400      34.0    UT
+## 45    0.0570      42.0    VA
+## 46    0.0550      30.0    VT
+## 47    0.0560      38.0    WA
+## 48    0.0510      19.0    WI
+## 49    0.0620      57.5    WV
+## 50    0.0510      21.0    WY
+```
+
+```r
+# Plot MedianABV by State
+ggplot(plot_frame, aes(x=State, y=MedianABV)) +
+  geom_bar(stat='identity', color='black', fill='light blue') +
+  xlab("MedianABV") + ylab("State") +
+  ggtitle("MedianABV by State") +
+  coord_flip()
+```
+
+![](case_study_one_files/figure-html/Q4-1.png)<!-- -->
+
+```r
+# Plot MedianIBU by State  
+ggplot(plot_frame, aes(x=State, y=MedianIBU)) +
+  geom_bar(stat='identity', color='black', fill='light green') +
+  xlab("MedianIBU") + ylab("State") +
+  ggtitle("MedianIBU by State") +
+  coord_flip()
+```
+
+![](case_study_one_files/figure-html/Q4-2.png)<!-- -->
+
+
