@@ -388,6 +388,23 @@ head(df_merge,6)</code></pre>
 ## 2409 Garrattsville    NY
 ## 2410     Anchorage    AK</code></pre>
 </div>
+<div id="question-3" class="section level3">
+<h3>Question 3</h3>
+<pre class="r"><code>CountNA &lt;- colSums(is.na(df_merge))
+CountNA &lt;- data.frame(CountNA)
+CountNA</code></pre>
+<pre><code>##              CountNA
+## Brewery_id         0
+## Brewery_name       0
+## Beer_ID            0
+## Beer_name          0
+## ABV               62
+## IBU             1005
+## Style              0
+## Ounces             0
+## City               0
+## State              0</code></pre>
+</div>
 
 
 

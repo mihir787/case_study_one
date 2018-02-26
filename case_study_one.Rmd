@@ -119,3 +119,12 @@ df_merge <- df_merge[c("Brewery_id","Brewery_name","Beer_ID","Beer_name",
 head(df_merge,6)
 tail(df_merge,6)
 ```
+
+### Question 3
+
+```{r Q3}
+CountNA <- colSums(is.na(df_merge))
+CountNA <- data.frame(CountNA)
+CountNA
+```
+
