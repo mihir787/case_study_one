@@ -339,3 +339,27 @@ tail(df_merge,6)
 ## 2409 Garrattsville    NY
 ## 2410     Anchorage    AK
 ```
+
+### Question 3
+
+
+```r
+CountNA <- colSums(is.na(df_merge))
+CountNA <- data.frame(CountNA)
+CountNA
+```
+
+```
+##              CountNA
+## Brewery_id         0
+## Brewery_name       0
+## Beer_ID            0
+## Beer_name          0
+## ABV               62
+## IBU             1005
+## Style              0
+## Ounces             0
+## City               0
+## State              0
+```
+
