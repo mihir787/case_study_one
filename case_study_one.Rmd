@@ -128,3 +128,37 @@ CountNA <- data.frame(CountNA)
 CountNA
 ```
 
+### Question 4
+```{r Q4}
+# Remove NA from df_merge
+library(ggplot2)
+df_merge <- na.omit(df_merge)
+
+# Generate the median of alcohol content and international bitterness unit for each State
+df_merge_subset <- data.frame(State=df_merge$State, ABV=df_merge$ABV, IBU=df_merge$IBU)
+
+MedianABV <- tapply(df_merge_subset$ABV,df_merge_subset$State,median)
+MedianIBU <- tapply(df_merge_subset$IBU,df_merge_subset$State,median)
+
+# Combine with State
+plot_frame <- data.frame(MedianABV, MedianIBU)
+plot_frame$State <- rownames(plot_frame)
+rownames(plot_frame) <- NULL
+plot_frame
+
+# Plot MedianABV by State
+ggplot(plot_frame, aes(x=State, y=MedianABV)) +
+  geom_bar(stat='identity', color='black', fill='light blue') +
+  xlab("MedianABV") + ylab("State") +
+  ggtitle("MedianABV by State") +
+  coord_flip()
+
+# Plot MedianIBU by State  
+ggplot(plot_frame, aes(x=State, y=MedianIBU)) +
+  geom_bar(stat='identity', color='black', fill='light green') +
+  xlab("MedianIBU") + ylab("State") +
+  ggtitle("MedianIBU by State") +
+  coord_flip()
+```
+
+
