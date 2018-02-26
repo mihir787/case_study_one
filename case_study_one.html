@@ -217,6 +217,71 @@ BreweriesClean[396,2] &lt;- &quot;Hops &amp; Grains Brewing Company&quot;
 # Brew_ID with Duplicate Rows: 2 &amp; 63, 89 &amp; 197, 147 &amp; 543, 378 &amp; 457, 59 &amp; 139
 BreweriesClean$BrewDupsFreq &lt;- NULL
 BreweriesClean$BrewDups &lt;- NULL</code></pre>
+<div id="question-1" class="section level3">
+<h3>Question 1</h3>
+<p>Count by State, probably needs to be based on Brewery_Name given the cleaning…</p>
+<pre class="r"><code># Make use of cleaned data set
+BreweryByState &lt;- table(factor(BreweriesClean$State))
+BreweryByState &lt;- data.frame(BreweryByState)
+
+# Rename columns to something meaningful
+colnames(BreweryByState) &lt;- c('State','Count')
+
+BreweryByState</code></pre>
+<pre><code>##    State Count
+## 1     AK     7
+## 2     AL     3
+## 3     AR     2
+## 4     AZ    11
+## 5     CA    39
+## 6     CO    47
+## 7     CT     8
+## 8     DC     1
+## 9     DE     2
+## 10    FL    15
+## 11    GA     7
+## 12    HI     4
+## 13    IA     5
+## 14    ID     5
+## 15    IL    18
+## 16    IN    22
+## 17    KS     3
+## 18    KY     4
+## 19    LA     5
+## 20    MA    22
+## 21    MD     7
+## 22    ME     9
+## 23    MI    32
+## 24    MN    12
+## 25    MO     9
+## 26    MS     2
+## 27    MT     9
+## 28    NC    19
+## 29    ND     1
+## 30    NE     5
+## 31    NH     3
+## 32    NJ     3
+## 33    NM     4
+## 34    NV     2
+## 35    NY    16
+## 36    OH    15
+## 37    OK     6
+## 38    OR    29
+## 39    PA    25
+## 40    RI     5
+## 41    SC     4
+## 42    SD     1
+## 43    TN     3
+## 44    TX    28
+## 45    UT     4
+## 46    VA    16
+## 47    VT    10
+## 48    WA    23
+## 49    WI    20
+## 50    WV     1
+## 51    WY     4
+## 52    MI     1</code></pre>
+</div>
 
 
 

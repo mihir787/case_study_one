@@ -75,3 +75,17 @@ BreweriesClean[396,2] <- "Hops & Grains Brewing Company"
 BreweriesClean$BrewDupsFreq <- NULL
 BreweriesClean$BrewDups <- NULL
 ```
+
+### Question 1
+Count by State, probably  needs to be based on Brewery_Name given the cleaning...
+
+```{r Q1}
+# Make use of cleaned data set
+BreweryByState <- table(factor(BreweriesClean$State))
+BreweryByState <- data.frame(BreweryByState)
+
+# Rename columns to something meaningful
+colnames(BreweryByState) <- c('State','Count')
+
+BreweryByState
+```
