@@ -8,6 +8,24 @@ colnames(Beers) <- c("Name", "Beer_id", "ABV", "IBU", "Brewery_id", "Style", "Ou
 Breweries <- read.csv("Breweries.csv", sep = ",")
 colnames(Breweries) <- c("Brewery_id", "Name", "City", "State")
 
+#cleanup
+namestotest <- Breweries$Name
+
+duptable = data.frame(Index=as.numeric(),Name=as.character())
+
+for (i in 1:length(namestotest)){
+  # Find potential duplicates
+  dup = agrep(namestotest[i],namestotest[-i],ignore.case = T, value = T, max.distance = .1, useBytes=FALSE)
+  name = ifelse(length(dup)>0,dup,"OK")
+  dupoccurance = data.frame(Index=i,Name = name)
+  duptable = rbind(duptable,dupoccurance)
+}
+
+# Remove rows that are "OK"
+duptable=subset(duptable,duptable$Name!="OK")
+duptable = duptable[order(duptable$Name),] # Sort to find true duplicates
+head(duptable)
+
 # a. How many breweries in each state?
 summary(Breweries)
 table(Breweries$State)
