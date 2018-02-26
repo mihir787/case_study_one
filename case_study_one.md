@@ -473,4 +473,22 @@ TopABV <- TopABV[1,1:2]
 TopIBU <- df_merge_subset[order(-df_merge_subset$IBU),]
 TopIBU <- TopIBU[1,]
 TopIBU[,2] <- NULL
+TopIBU
+```
+
+```
+##      State IBU
+## 1134    OR 138
+```
+
+### Question 6
+
+```r
+summaryABV <- summary(df_merge_subset$ABV)
+summaryABV
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## 0.02700 0.05000 0.05700 0.05991 0.06800 0.12500
 ```

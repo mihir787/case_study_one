@@ -174,4 +174,11 @@ TopABV <- TopABV[1,1:2]
 TopIBU <- df_merge_subset[order(-df_merge_subset$IBU),]
 TopIBU <- TopIBU[1,]
 TopIBU[,2] <- NULL
+TopIBU
+```
+
+### Question 6
+```{r Q6}
+summaryABV <- summary(df_merge_subset$ABV)
+summaryABV
 ```
