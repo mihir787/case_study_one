@@ -411,14 +411,10 @@ CountNA</code></pre>
 <div id="question-4" class="section level3">
 <h3>Question 4</h3>
 <p>Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.</p>
-<pre class="r"><code># Remove NA from df_merge
-library(ggplot2)
-#df_merge &lt;- na.omit(df_merge)
-
-# Generate the median of alcohol content and international bitterness unit for each State
-df_merge_ABV &lt;- na.omit(data.frame(State=df_merge$State, ABV=df_merge$ABV)) #, IBU=df_merge$IBU)
-df_merge_IBU &lt;- na.omit(data.frame(State=df_merge$State, IBU=df_merge$IBU))
-
+<pre class="r"><code># Generate the median of alcohol content and international bitterness unit for each State
+df_merge_ABV &lt;- na.omit(data.frame(State=df_merge$State, ABV=df_merge$ABV)) # Remove NA values
+df_merge_IBU &lt;- na.omit(data.frame(State=df_merge$State, IBU=df_merge$IBU)) # Remove NA values
+ 
 MedianABV &lt;- tapply(df_merge_ABV$ABV,df_merge_ABV$State,median)
 MedianIBU &lt;- tapply(df_merge_IBU$IBU,df_merge_IBU$State,median)
 
@@ -461,7 +457,7 @@ TopABV</code></pre>
 <pre><code>##       ABV State
 ## 375 0.128    CO</code></pre>
 <pre class="r"><code># Sort data to determine State with highest IBU
-# Largest IBU is 138 within Oregan
+# Largest IBU is 138 within Oregon
 TopIBU &lt;- df_merge[order(-df_merge$IBU),]
 TopIBU &lt;- TopIBU[1,c(6,10)]
 TopIBU</code></pre>
