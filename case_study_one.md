@@ -7,9 +7,22 @@ output:
     keep_md: yes
 ---
 
+### Introduction
 
+In the late 1970s the United States began a renaissance of craft brewing that would turn into a national phenomenon. In 2017 there was recorded a total of over 6,000 breweries and it is estimated that 83% of 21+ adults now live within 10 miles of a brewery. The industry was measured as contributing 67.8 billion dollars to the U.S. economy in 2016. The code below begins with a raw data dump of prominenet breweries and beers with the goal of analysis. As shown in the initial data exploration, the data is not entirely clean. However, once the data has been appropriately cleaned meaningful insight can be gleaned.
+
+
+
+### Initial Review and Cleanup
 
 From initial review of the information provided we will show how many breweries are present within each state.
+
+
+```r
+library(stringr)
+library(tidyverse)
+library(ggplot2)
+```
 
 
 ```r
@@ -99,9 +112,11 @@ BreweriesClean$BrewDupsFreq <- NULL
 BreweriesClean$BrewDups <- NULL
 ```
 
+The code above performs several cleaning functions. First, city names are manually checked and updated in the data. Second, duplicates of breweries are revealed. This is done by removing common parts of brewery names, such as "Brewery" or "Company". Then the brewery name is added to city and state and each string is examined against all other strings. Finally, brewery names are manually updated.
 
 ### Question 1
-Count by State, probably  needs to be based on Brewery_Name given the cleaning...
+
+How many breweries are present in each state?
 
 
 ```r
@@ -171,8 +186,11 @@ BreweryByState
 ## 52    MI     1
 ```
 
+The code above counts the number of breweries in each state and creates a data frame. Finally, meaningful names are applied to the columns and the result is displayed on the screen.
+
 ### Question 2
-Combine data set into a merged frame
+
+Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.
 
 
 ```r
@@ -307,7 +325,13 @@ tail(df_merge,6)
 ## 2410     Anchorage    AK
 ```
 
+The code above is used to combine the beer and brewery data on a common identifier present in both data sets - the "Brewery_id" in the beer dataset and the "Brew_ID" in the breweries dataset. Once the datasets are combined a more meaningul name is applied to some of the columns and the order is changed placing the identifiers in more logical positions.
+
+Finally, the first and last six rows are shown.
+
 ### Question 3
+
+Report the number of NA’s in each column.
 
 
 ```r
@@ -330,7 +354,11 @@ CountNA
 ## State              0
 ```
 
+The above code counts the number of NAs in each column. The only features with NAs are ABV with 62 and IBU with 1005.
+
 ### Question 4
+
+Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
 
 
 ```r
@@ -378,7 +406,11 @@ ggplot(data=MedianIBU, aes(x=State, y=MedianIBU)) +
 
 ![](case_study_one_files/figure-html/Q4-2.png)<!-- -->
 
+The code above applies the median function to ABV and IBU that have been subset by State and saves it into a new object. The calculated median ABV and IBU are then added to a common data frame with State for plotting. Finally, plots are produced for median IBU and ABV by State.
+
 ### Question 5
+
+Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
 
 
 ```r
@@ -409,6 +441,8 @@ TopIBU
 
 ### Question 6
 
+The following shows the summary statistics of the ABV variable.
+
 
 ```r
 summaryABV <- summary(df_merge$ABV)
@@ -420,10 +454,14 @@ summaryABV
 ## 0.00100 0.05000 0.05600 0.05977 0.06700 0.12800      62
 ```
 
+The code above produces the summary statistics for the ABV variable.
+
 ### Question 7
 
+Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot.
+
+
 ```r
-library(ggplot2)
 cor(df_merge$IBU, df_merge$ABV, use = "complete.obs")
 ```
 
@@ -440,3 +478,7 @@ ggplot(data=na.omit(df_merge), aes(x=IBU, y=ABV)) +
 ```
 
 ![](case_study_one_files/figure-html/Q7-1.png)<!-- -->
+
+The code above computes the correlation between IBU and IBV and displays it to the screen. Finally, a plot is drawn with IBU on the x-axis and ABV on the y-axis.
+
+Yes. As made apparent by the black line in the plot above there appears to be a linear relationship between the IBU and ABV of the beers in the data. Further evidence is revealed by the correlation coeffecient of .6706.
