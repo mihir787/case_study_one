@@ -25,6 +25,7 @@ From initial review of the information provided we will show how many breweries 
 library(stringr)
 library(tidyverse)
 library(ggplot2)
+library(kableExtra)
 ```
 
 ```{r BreweriesReview}
@@ -73,7 +74,9 @@ BreweriesCleanDups <- BreweriesClean[BreweriesClean$BrewDupsFreq %in%  dupNames$
 BreweriesCleanDups <- BreweriesCleanDups[order(BreweriesCleanDups$BrewDupsFreq),]
 
 # Review results
-BreweriesCleanDups
+knitr::kable(BreweriesCleanDups,caption = "Potential Duplicates", row.names = FALSE, "html") %>%
+  kable_styling(bootstrap_options = c("striped","hover","condensed"))
+
 
 # Fix based on observations and other data discovery
 BreweriesClean[2,2] <- "Against The Grain Brewery"
@@ -101,7 +104,12 @@ BreweryByState <- data.frame(BreweryByState)
 # Rename columns to something meaningful
 colnames(BreweryByState) <- c('State','Count')
 
-BreweryByState
+knitr::kable(BreweryByState,caption = "Breweries by State",  "html") %>%
+  kable_styling(full_width = F, position = "center", bootstrap_options = c("striped","hover","condensed")) %>%
+  column_spec(1, bold = T, width = "1in") %>%
+  column_spec(2, width = "1in") %>%
+  scroll_box(width = "2in", height = "6in")
+
 ```
 
 The code above counts the number of breweries in each state and creates a data frame. Finally, meaningful names are applied to the columns and the result is displayed on the screen.
@@ -114,27 +122,30 @@ Merge beer data with the breweries data. Print the first 6 observations and the 
 # Read in csv file containing Beer details
 Beers <- read.csv("Beers.csv", header=TRUE, sep = ',')
 
-# Merge the data on Beers.Brewery_Id and Breweries.Brew_ _ID then validate merged file
+# Merge the data on Beers.Brewery_Id and Breweries.Brew_ID
 df_merge <- merge(Beers, Breweries, by.x="Brewery_id", by.y = "Brew_ID")
-head(df_merge)
-tail(df_merge)
 
-#Give the columns more meaningful name
+# Give the columns more meaningful name
 # Rename column 'Name' from Beers data
 colnames(df_merge)[2] <- "Beer_name"
 
 # Rename column 'Name' from Breweries data
 colnames(df_merge)[8] <- "Brewery_name"
-names(df_merge)
 
-#Arrange the columns in more meaningful order
+# Arrange the columns in more meaningful order
 df_merge <- df_merge[c("Brewery_id","Brewery_name","Beer_ID","Beer_name",
                        "ABV","IBU","Style","Ounces", "City","State")]
 
 
-# Show first 6 and last 6 rows of merged data
-head(df_merge,6)
-tail(df_merge,6)
+# Show first 6 rows of merged data
+head_merge = head(df_merge,6)
+knitr::kable(head_merge,caption = "First 6 Rows",row.names = FALSE, "html") %>%
+  kable_styling(bootstrap_options = c("striped","hover","condensed"))
+
+# Show last 6 rows of merged data
+tail_merge = tail(df_merge, 6)
+knitr::kable(tail_merge,caption = "Last 6 Rows", row.names = FALSE, "html") %>%
+  kable_styling(bootstrap_options = c("striped","hover","condensed"))
 ```
 
 The code above is used to combine the beer and brewery data on a common identifier present in both data sets - the "Brewery_id" in the beer dataset and the "Brew_ID" in the breweries dataset. Once the datasets are combined a more meaningul name is applied to some of the columns and the order is changed placing the identifiers in more logical positions.
@@ -148,7 +159,9 @@ Report the number of NA’s in each column.
 ```{r Q3}
 CountNA <- colSums(is.na(df_merge))
 CountNA <- data.frame(CountNA)
-CountNA
+
+knitr::kable(CountNA,caption = "NA by Column", "html") %>%
+  kable_styling(bootstrap_options = c("striped","hover","condensed"), full_width = F)
 ```
 
 The above code counts the number of NAs in each column. The only features with NAs are ABV with 62 and IBU with 1005.
@@ -202,12 +215,16 @@ Which state has the maximum alcoholic (ABV) beer? Which state has the most bitte
 # Largest ABV is .125 within Colorado
 TopABV <- df_merge[order(-df_merge$ABV),]
 TopABV <- TopABV[1,c(5,10)]
-TopABV
+
+print(TopABV, row.names = FALSE)
+
 # Sort data to determine State with highest IBU
 # Largest IBU is 138 within Oregon
 TopIBU <- df_merge[order(-df_merge$IBU),]
 TopIBU <- TopIBU[1,c(6,10)]
-TopIBU
+
+print(TopIBU, row.names = FALSE)
+ 
 ```
 
 ### Question 6
@@ -226,7 +243,7 @@ The code above produces the summary statistics for the ABV variable.
 Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot.
 
 ```{r Q7}
-cor(df_merge$IBU, df_merge$ABV, use = "complete.obs")
+cor(df_merge$IBU, df_merge$ABV, use = "complete.obs") #0.6706215
 
 ggplot(data=na.omit(df_merge), aes(x=IBU, y=ABV)) + 
   geom_point(color = "red", size = 3)+
