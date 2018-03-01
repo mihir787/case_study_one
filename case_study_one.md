@@ -390,7 +390,7 @@ ggplot(data=MedianABV, aes(x=State, y=MedianABV)) +
   coord_flip()
 ```
 
-![](case_study_one_files/figure-html/Q4-1.png)<!-- -->
+<img src="case_study_one_files/figure-html/Q4-1.png" style="display: block; margin: auto;" />
 
 ```r
 # Plot MedianIBU by State  
@@ -401,7 +401,7 @@ ggplot(data=MedianIBU, aes(x=State, y=MedianIBU)) +
   coord_flip()
 ```
 
-![](case_study_one_files/figure-html/Q4-2.png)<!-- -->
+<img src="case_study_one_files/figure-html/Q4-2.png" style="display: block; margin: auto;" />
 
 The code above applies the median function to ABV and IBU that have been subset by State and saves it into a new object. The calculated median ABV and IBU are then added to a common data frame with State for plotting. Finally, plots are produced for median IBU and ABV by State.
 
@@ -474,7 +474,7 @@ ggplot(data=na.omit(df_merge), aes(x=IBU, y=ABV)) +
   ggtitle("Alchohol by Volume vs International Bitterness Units")
 ```
 
-![](case_study_one_files/figure-html/Q7-1.png)<!-- -->
+<img src="case_study_one_files/figure-html/Q7-1.png" style="display: block; margin: auto;" />
 
 The code above computes the correlation between IBU and IBV and displays it to the screen. Finally, a plot is drawn with IBU on the x-axis and ABV on the y-axis.
 
