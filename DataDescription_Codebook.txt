@@ -1,0 +1,94 @@
+Raw Data
+
+Beers.csv:
+
+Name: Name of the beer.
+String
+No NAs
+
+Beer ID: Unique identifier of the beer.
+Integer (Range: 1 - 2692)
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .001-.128)
+Contains NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer. Style: Style of the beer.
+Real Number (Range: 1 to 138)
+Contains NAs
+
+Ounces: Ounces of beer.
+
+Breweries.csv:
+
+Brew ID: Unique identifier of the brewery. Name: Name of the brewery.
+Integer (Range: 1 - 558)
+No NAs
+
+Name: The name of the brewery
+String
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+
+Working Objects and Data Frames
+
+BreweriesClean
+
+Brew ID: Unique identifier of the brewery.
+Integer (Range: 1 - 558)
+No NAs
+
+Name: The name of the brewery
+String
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+BreweriesCleanDups
+
+Brew ID: Unique identifier of the brewery.
+Integer (Range: 1 - 139)
+No NAs
+
+Name: The name of the brewery
+String
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+BrewDups: Aggregates breweries that appear more than once
+String
+No NAs
+
+BrewDupsFreq: Result set of matching dupes
+String
+No NAs
+
+CountNA
+
+CountNA : Count of NAs by column
+Integer (Range 0-1005)
+No NAs
+
+
