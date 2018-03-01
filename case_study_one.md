@@ -5,6 +5,8 @@ date: "2/25/2018"
 output:
   html_document:
     keep_md: yes
+    fig_width: 5
+    fig_height: 6.5
 ---
 
 ### Introduction
@@ -392,10 +394,9 @@ ggplot(data=MedianABV, aes(x=State, y=MedianABV)) +
 
 ```r
 # Plot MedianIBU by State  
-
 ggplot(data=MedianIBU, aes(x=State, y=MedianIBU)) +
   geom_bar(stat='identity', color='black', fill='light green') +
-  xlab("MedianIBU") + ylab("State") +
+  ylab("MedianIBU") + xlab("State") +
   ggtitle("MedianIBU by State") + 
   coord_flip()
 ```
