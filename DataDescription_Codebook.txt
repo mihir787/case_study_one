@@ -1,0 +1,255 @@
+Raw Data
+
+Beers.csv:
+
+Name: Name of the beer.
+String
+No NAs
+
+Beer ID: Unique identifier of the beer.
+Integer (Range: 1 - 2692)
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .001-.128)
+Contains NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer.
+Real Number (Range: 1 to 138)
+Contains NAs
+
+Style: Style of the beer.
+String
+No NAs
+
+Ounces: Ounces of beer.
+Real Number (Range: 8.4 - 32) 
+No NAs
+
+Breweries.csv:
+
+Brew ID: Unique identifier of the brewery. Name: Name of the brewery.
+Integer (Range: 1 - 558)
+No NAs
+
+Name: The name of the brewery
+String
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+Working Objects and Data Frames
+
+BreweriesClean
+
+Brew ID: Unique identifier of the brewery.
+Integer (Range: 1 - 558)
+No NAs
+
+Name: The name of the brewery
+String
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+BreweriesCleanDups
+
+Brew_ID: Unique identifier of the brewery.
+Integer (Range: 1 - 139)
+No NAs
+
+Name: The name of the brewery
+String
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+BrewDups: Aggregates breweries that appear more than once
+String
+No NAs
+
+BrewDupsFreq: Result set of matching dupes
+String
+No NAs
+
+CountNA
+
+CountNA : Count of NAs by column
+Integer (Range 0-1005)
+No NAs
+
+BreweryByState
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+Count
+Integer (Range 1-47)
+
+head_merge
+
+Brew ID: Unique identifier of the brewery.
+Integer (Range: 1)
+No NAs
+
+Brewery_name: The name of the brewery
+String
+No NAs
+
+Beer_ID: Unique identifier of the beer.
+Integer (Range: 1 - 2692)
+No NAs
+
+Beer_name: Name of the beer.
+String
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .001-.128)
+Contains NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer. 
+Real Number (Range: 1 to 138)
+Contains NAs
+
+Style: Style of the beer.
+String
+No NAs
+
+Ounces: Ounces of beer.
+Real Number (Range: 8.4 - 32) 
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+tail_merge
+
+Brew ID: Unique identifier of the brewery.
+Integer (Range: 1)
+No NAs
+
+Brewery_name: The name of the brewery
+String
+No NAs
+
+Beer_ID: Unique identifier of the beer.
+Integer (Range: 1 - 2692)
+No NAs
+
+Beer_name: Name of the beer.
+String
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .001-.128)
+Contains NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer.
+Real Number (Range: 1 to 138)
+Contains NAs
+
+Style: Style of the beer.
+String
+No NAs
+
+Ounces: Ounces of beer.
+Real Number (Range: 8.4 - 32) 
+No NAs
+
+City: City where the brewery is located.
+String
+No NAs
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+df_merge_ABV
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .001-.128)
+No NAs
+
+df_merge_IBU
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer. 
+Integer (Range: 4-138)
+No NAs
+
+MedianABV
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .001-.128)
+No NAs
+
+MedianIBU
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer. 
+Integer (Range: 4-138)
+No NAs
+
+TopABV
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+ABV: Alcohol by volume of the beer.
+Real Number (Range: .128)
+No NAs
+
+TopIBU
+
+State: U.S. State where the brewery is located.
+String
+No NAs
+
+IBU: International Bitterness Units of the beer. Brewery ID: Brewery id associated with the beer. 
+Integer (Range: 138)
+No NAs
+
+
+
+
+
