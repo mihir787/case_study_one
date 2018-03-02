@@ -11,7 +11,7 @@ output:
 
 ### Introduction
 
-In the late 1970s the United States began a renaissance of craft brewing that would turn into a national phenomenon. In 2017 there was recorded a total of over 6,000 breweries and it is estimated that 83% of 21+ adults now live within 10 miles of a brewery. The industry was measured as contributing 67.8 billion dollars to the U.S. economy in 2016. The code below begins with a raw data dump of prominenet breweries and beers with the goal of analysis. As shown in the initial data exploration, the data is not entirely clean. However, once the data has been appropriately cleaned meaningful insight can be gleaned.
+In the late 1970s the United States began a renaissance of craft brewing that would turn into a national phenomenon. In 2017 there was recorded a total of over 6,000 breweries and it is estimated that 83% of 21+ adults now live within 10 miles of a brewery. The industry was measured as contributing 67.8 billion dollars to the U.S. economy in 2016. The code below begins with a raw data dump of prominent breweries and beers with the goal of analysis. As shown in the initial data exploration, the data is not entirely clean. However, once the data has been appropriately cleaned meaningful insight can be gleaned.
 
 ```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
@@ -92,9 +92,9 @@ BreweriesClean$BrewDups <- NULL
 
 The code above performs several cleaning functions. First, city names are manually checked and updated in the data. Second, duplicates of breweries are revealed. This is done by removing common parts of brewery names, such as "Brewery" or "Company". Then the brewery name is added to city and state and each string is examined against all other strings. Finally, brewery names are manually updated.
 
-### Question 1
+### US Brewery Distribution
 
-How many breweries are present in each state?
+Our first step in analyzing the data is to determine the distribution of breweries across the United States.
 
 ```{r Q1}
 # Make use of cleaned data set
@@ -114,9 +114,9 @@ knitr::kable(BreweryByState,caption = "Breweries by State",  "html") %>%
 
 The code above counts the number of breweries in each state and creates a data frame. Finally, meaningful names are applied to the columns and the result is displayed on the screen.
 
-### Question 2
+### Merge Beer and Brewery Data
 
-Merge beer data with the breweries data. Print the first 6 observations and the last six observations to check the merged file.
+With the brewery data and beer data in separate files, it's difficult to provide meaningful insight between the related data.  We merged the two data sets to yield more insightful analysis.  To verify the data was merged correctly, we analyzed the first and last six rows of the data.
 
 ```{r Q2}
 # Read in csv file containing Beer details
@@ -148,13 +148,13 @@ knitr::kable(tail_merge,caption = "Last 6 Rows", row.names = FALSE, "html") %>%
   kable_styling(bootstrap_options = c("striped","hover","condensed"))
 ```
 
-The code above is used to combine the beer and brewery data on a common identifier present in both data sets - the "Brewery_id" in the beer dataset and the "Brew_ID" in the breweries dataset. Once the datasets are combined a more meaningul name is applied to some of the columns and the order is changed placing the identifiers in more logical positions.
+The code above is used to combine the beer and brewery data on a common identifier present in both data sets - the "Brewery_id" in the beer dataset and the "Brew_ID" in the breweries dataset. Once the datasets are combined a more meaningful name is applied to some of the columns and the order is changed placing the identifiers in more logical positions.
 
 Finally, the first and last six rows are shown.
 
-### Question 3
+### Missing Values in Data
 
-Report the number of NA’s in each column.
+With any data, there will always be missing data points, so we ran an analysis to see if there were any specific fields that had an unusually high rate of missing data.  This helps us determine if any results will require additional investigation due to the high amount of missing data.
 
 ```{r Q3}
 CountNA <- colSums(is.na(df_merge))
@@ -166,9 +166,9 @@ knitr::kable(CountNA,caption = "NA by Column", "html") %>%
 
 The above code counts the number of NAs in each column. The only features with NAs are ABV with 62 and IBU with 1005.
 
-### Question 4
+### Median ABV and IBU per State
 
-Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
+In addition to analyzing the distribution of breweries among each of the states we wanted to take a look at characteristics of the beers produced in each state.  We computed the median alcohol content and international bitterness unit for each state and created a bar plot to help visualize the distribution and extreme values.
 
 ```{r Q4}
 # Generate the median of alcohol content and international bitterness unit for each State
@@ -206,9 +206,9 @@ ggplot(data=MedianIBU, aes(x=State, y=MedianIBU)) +
 
 The code above applies the median function to ABV and IBU that have been subset by State and saves it into a new object. The calculated median ABV and IBU are then added to a common data frame with State for plotting. Finally, plots are produced for median IBU and ABV by State.
 
-### Question 5
+### Extreme beer characteristics
 
-Which state has the maximum alcoholic (ABV) beer? Which state has the most bitter (IBU) beer?
+We wanted to identify which state had the beer with the highest alcohol by volume and which state had the most bitter beer.
 
 ```{r Q5}
 # Sort data to determine State with highest ABV
@@ -227,9 +227,9 @@ print(TopIBU, row.names = FALSE)
  
 ```
 
-### Question 6
+### Summary of ABV
 
-The following shows the summary statistics of the ABV variable.
+To help describe the overall distribution of the alcohol by volume statistic across all beers, we calculated the summary statistics of ABV from the data set.
 
 ```{r Q6}
 summaryABV <- summary(df_merge$ABV)
@@ -238,9 +238,9 @@ summaryABV
 
 The code above produces the summary statistics for the ABV variable.
 
-### Question 7
+### ABV vs IBU relationship
 
-Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot.
+We wanted to take a closer look into the relationship of the ABV and IBU in beers.  We created a scatter plot and calculated the correlation coefficient of the data.
 
 ```{r Q7}
 cor(df_merge$IBU, df_merge$ABV, use = "complete.obs") #0.6706215
@@ -254,4 +254,8 @@ ggplot(data=na.omit(df_merge), aes(x=IBU, y=ABV)) +
 
 The code above computes the correlation between IBU and IBV and displays it to the screen. Finally, a plot is drawn with IBU on the x-axis and ABV on the y-axis.
 
-Yes. As made apparent by the black line in the plot above there appears to be a linear relationship between the IBU and ABV of the beers in the data. Further evidence is revealed by the correlation coeffecient of .6706.
+Yes. As made apparent by the black line in the plot above there appears to be a linear relationship between the IBU and ABV of the beers in the data. Further evidence is revealed by the correlation coefficient of .6706.
+
+### Overall thoughts
+
+Reviewing the data, we discovered multiple data issues that required clean up and raised concern over the validity of the data.  We found incomplete city names, incorrect states, and misspelled names.  To help subsequent studies in data gathering, we recommend database layer validations to help validate the uniqueness of beer and brewery data.  We also recommend building a web application that can help collect and verify the data.
