@@ -26,3 +26,5 @@ Breweries.csv:
 Brew ID: Unique identifier of the brewery. Name: Name of the brewery.
 City: City where the brewery is located.
 State: U.S. State where the brewery is located.
+
+In this repository there is also a file named "DataDescription_Codebook.txt" which contains a more detailed review of all the columns, their data types, data ranges, and information concerning the presence of NA's.

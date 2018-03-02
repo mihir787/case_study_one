@@ -11,13 +11,13 @@ output:
 
 ### Introduction
 
-In the late 1970s the United States began a renaissance of craft brewing that would turn into a national phenomenon. In 2017 there was recorded a total of over 6,000 breweries and it is estimated that 83% of 21+ adults now live within 10 miles of a brewery. The industry was measured as contributing 67.8 billion dollars to the U.S. economy in 2016. The code below begins with a raw data dump of prominent breweries and beers with the goal of analysis. As shown in the initial data exploration, the data is not entirely clean. However, once the data has been appropriately cleaned meaningful insight can be gleaned.
+In the late 1970s the United States began a renaissance of craft brewing that would turn into a national phenomenon. In 2017 there was recorded a total of over 6,000 breweries and it is estimated that 83% of 21+ adults now live within 10 miles of a brewery. The industry was measured as contributing 67.8 billion dollars to the U.S. economy in 2016. The code below begins with a raw data dump of prominent breweries and beers with the goal of analysis to determine areas of potential distribution expansion. As shown in the initial data exploration, the data is not entirely clean. However, once the data has been appropriately cleaned meaningful insight can be gleaned. Our goal is to generate some meaningful metrics to assist your organization with the future business development strategy that we reviewed last quarter.
 
 
 
 ### Initial Review and Cleanup
 
-From initial review of the information provided we will show how many breweries are present within each state.
+From initial review of the information provided from your IT department it became clear some of the brewery names required investigation. Below is the result of our fuzzy text logic which generated a more usable Brewery data set. 
 
 
 ```r
@@ -191,7 +191,7 @@ The code above performs several cleaning functions. First, city names are manual
 
 ### US Brewery Distribution
 
-Our first step in analyzing the data is to determine the distribution of breweries across the United States.
+Our first step in analyzing expansion opportunities was to determine the distribution of breweries across the United States. That will be a crucial metric to provide your business development group as it relates to determining which markets would be the best investment for your company.
 
 
 ```r
@@ -429,11 +429,11 @@ knitr::kable(BreweryByState,caption = "Breweries by State",  "html") %>%
 </tbody>
 </table></div>
 
-The code above counts the number of breweries in each state and creates a data frame. Finally, meaningful names are applied to the columns and the result is displayed on the screen.
+The code above counts the number of breweries in each state and displays the resulting data frame within the html table. Meaningful names are applied to the columns and the result is displayed on the screen.
 
 ### Merge Beer and Brewery Data
 
-With the brewery data and beer data in separate files, it's difficult to provide meaningful insight between the related data.  We merged the two data sets to yield more insightful analysis.  To verify the data was merged correctly, we analyzed the first and last six rows of the data.
+With the brewery data and beer data in separate files, it is difficult to provide valuable insight between the related data.  The tables were merged to yield a more complete data set for the complete analysis. To verify the data was merged correctly, we analyzed the first and last six rows of the data. Please refer to the results displayed in the html tables below.
 
 
 ```r
@@ -654,11 +654,9 @@ knitr::kable(tail_merge,caption = "Last 6 Rows", row.names = FALSE, "html") %>%
 
 The code above is used to combine the beer and brewery data on a common identifier present in both data sets - the "Brewery_id" in the beer dataset and the "Brew_ID" in the breweries dataset. Once the datasets are combined a more meaningful name is applied to some of the columns and the order is changed placing the identifiers in more logical positions.
 
-Finally, the first and last six rows are shown.
-
 ### Missing Values in Data
 
-With any data, there will always be missing data points, so we ran an analysis to see if there were any specific fields that had an unusually high rate of missing data.  This helps us determine if any results will require additional investigation due to the high amount of missing data.
+With any data, there will always be the potential for missing data points. Our data integrity team ran an analysis to see if there were any specific fields that had an unusually high rate of missing data.  This helped us determine if any results required additional investigation due to the high amount of missing data.
 
 
 ```r
@@ -725,7 +723,7 @@ The above code counts the number of NAs in each column. The only features with N
 
 ### Median ABV and IBU per State
 
-In addition to analyzing the distribution of breweries among each of the states we wanted to take a look at characteristics of the beers produced in each state.  We computed the median alcohol content and international bitterness unit for each state and created a bar plot to help visualize the distribution and extreme values.
+In addition to analyzing the distribution of breweries among each of the states we wanted to take a look at characteristics of the beers produced in each state in the event that certain types of beer were concentrated regionally among the breweries reviewed.  We computed the median alcohol content and international bitterness unit for each state and created a bar plot to help visualize the distribution and observe extreme values.
 
 
 ```r
@@ -772,7 +770,7 @@ The code above applies the median function to ABV and IBU that have been subset 
 
 ### Extreme beer characteristics
 
-We wanted to identify which state had the beer with the highest alcohol by volume and which state had the most bitter beer.
+We wanted to identify which state had the beer with the highest alcohol by volume and which state had the most bitter beer. Those results can be reviewed below, finding concluded that Colorado contained the largest ABV value of .125 and Oregon contained the largest IBU value of 138.
 
 
 ```r
@@ -822,7 +820,7 @@ The code above produces the summary statistics for the ABV variable.
 
 ### ABV vs IBU relationship
 
-We wanted to take a closer look into the relationship of the ABV and IBU in beers.  We created a scatter plot and calculated the correlation coefficient of the data.
+We wanted to take a closer look into the relationship of the ABV and IBU in beers.  The scatter plot shows that relationship among the provided information and we calculated the correlation coefficient of the data.
 
 
 ```r
@@ -843,10 +841,8 @@ ggplot(data=na.omit(df_merge), aes(x=IBU, y=ABV)) +
 
 <img src="case_study_one_files/figure-html/Q7-1.png" style="display: block; margin: auto;" />
 
-The code above computes the correlation between IBU and IBV and displays it to the screen. Finally, a plot is drawn with IBU on the x-axis and ABV on the y-axis.
-
-Yes. As made apparent by the black line in the plot above there appears to be a linear relationship between the IBU and ABV of the beers in the data. Further evidence is revealed by the correlation coefficient of .6706.
+As made apparent by the black line in the plot above there appears to be a moderate positive linear relationship between the IBU and ABV of the beers in the data. Further evidence is revealed by the correlation coefficient of .6706.
 
 ### Overall thoughts
 
-Reviewing the data, we discovered multiple data issues that required clean up and raised concern over the validity of the data.  We found incomplete city names, incorrect states, and misspelled names.  To help subsequent studies in data gathering, we recommend database layer validations to help validate the uniqueness of beer and brewery data.  We also recommend building a web application that can help collect and verify the data.
+Reviewing the data, we discovered multiple issues that required clean up and raised concern over the quality control during entry of the data.  We found incomplete city names, incorrect states, and misspelled names.  To help subsequent studies in data gathering, we recommend database layer validations to help validate the uniqueness of beer and brewery data.  We also recommend building a web application that can help collect and verify the data. In addition we recommend exploring the states that had fewer regional breweries for expansion into new distribution areas.
